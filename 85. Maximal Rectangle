@@ -1,0 +1,65 @@
+class Solution {
+public:
+
+    int LargestRectangleArea(vector<int>& heights) {
+        
+        int n = heights.size();
+        vector<int> right(n);
+        vector<int> left(n);
+        stack<int> st;
+
+        for(int i=0;i<n;i++) {
+            while(!st.empty() && heights[st.top()] > heights[i]) {
+                right[st.top()] = i;
+                st.pop();
+            }
+            st.push(i);
+        }
+        while(!st.empty()) {
+            right[st.top()] = n;
+            st.pop();
+        }
+
+        for(int i=n-1;i>=0;i--) {
+            while(!st.empty() && heights[st.top()] > heights[i]) {
+                left[st.top()] = i;
+                st.pop();
+            }
+            st.push(i);
+        }
+        while(!st.empty()) {
+            left[st.top()] = -1;
+            st.pop();
+        }
+
+        int ans = 0;
+        for(int i=0;i<n;i++) {
+            ans = max(ans, heights[i] * (right[i] - left[i] - 1));
+        }
+        return ans;
+    }
+
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        
+        int row = matrix.size();
+        int col = matrix[0].size();
+        int ans  = 0;
+        vector<int> heights(col,0);
+
+        for(int i=0;i<row;i++) {
+            for(int j=0;j<col;j++) {
+
+                if(matrix[i][j] == '0') {
+                    heights[j] = 0;
+                }
+                else {
+                    heights[j]++;
+                }
+            }
+            ans = max(ans, this->LargestRectangleArea(heights));
+
+        }
+        return ans;
+    }
+
+};
