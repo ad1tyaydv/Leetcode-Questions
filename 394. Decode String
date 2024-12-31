@@ -1,0 +1,40 @@
+class Solution {
+public:
+    string decodeString(string s) {
+        
+        stack<int> numstack;
+        stack<string> strstack;
+        string currstr;
+        int k = 0;
+
+        for(char c : s) {
+            if(isdigit(c)) {
+                k = k * 10 + (c - '0');
+            }
+            else if(c == '[') {
+                numstack.push(k);
+                strstack.push(currstr);
+                currstr = "";
+                k = 0;
+            }
+            else if(c == ']') {
+                int repeat = numstack.top();
+                numstack.pop();
+
+                string temp  = currstr;
+                currstr = "";
+                for(int i=0;i<repeat;i++) {
+                    currstr += temp;
+                }
+
+                currstr =  strstack.top() + currstr;
+                strstack.pop();
+            }
+            else {
+                currstr += c;
+            }
+        }
+
+        return currstr;
+    }
+};
