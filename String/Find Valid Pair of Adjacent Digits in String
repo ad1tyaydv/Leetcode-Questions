@@ -1,0 +1,41 @@
+class Solution {
+public:
+
+    int occurance(string &s, char element) {
+
+        int count = 0;
+
+        for(char ch : s) {
+            if(ch == element) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+    
+    string findValidPair(string s) {
+
+        int first = 0, second = 1;
+        int n = s.size();
+        
+        while(second < n) {
+            if(s[first] != s[second]) {
+                char element1 = s[first];
+                char element2 = s[second];
+
+                int count1 = occurance(s, element1);
+                int count2 = occurance(s, element2);
+
+                if(count1 == (element1 - '0') && count2 == (element2 - '0')) {
+                    return {element1, element2};
+                }
+            }
+
+            first++;
+            second++;
+        }
+
+        return "";
+    }
+};
