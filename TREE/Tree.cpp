@@ -43,6 +43,28 @@ void preorder(Node* root) {
     preorder(root->right);
 }
 
+void inorder(Node* root) {
+
+    if(root == NULL) {
+        return;
+    }
+
+    inorder(root->left);
+    cout<<root->data;
+    inorder(root->right);
+}
+
+void postorder(Node* root) {
+
+    if(root == NULL) {
+        return;
+    }
+
+    postorder(root->left);
+    postorder(root->right);
+    cout<<root->data;
+}
+
 int main() {
     
     cout<<"ENTER THE ROOT NDOE: ";
@@ -51,4 +73,12 @@ int main() {
 
     cout<<"PREORDER: ";
     preorder(root);
+    cout<<endl;
+    
+    cout<<"INORDER: ";
+    inorder(root);
+    cout<<endl;
+
+    cout<<"POSTORDER: ";
+    postorder(root);
 }
