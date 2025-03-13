@@ -1,3 +1,4 @@
+#include <iostream>
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -5,11 +6,11 @@ using namespace std;
 class Node {
     public:
     int data;
-    Node* right, *left;
+    Node* left, *right;
 
     Node(int value) {
         data = value;
-        right = left = NULL;
+        left = right = NULL;
     }
 };
 
@@ -25,7 +26,6 @@ Node* binarytree() {
 
     // CREATE LEFT SIDE
     temp->left = binarytree();
-
     // CREATE RIGHT SIDE
     temp->right = binarytree();
 
@@ -33,7 +33,6 @@ Node* binarytree() {
 }
 
 void preorder(Node* root) {
-
     if(root == NULL) {
         return;
     }
@@ -44,7 +43,6 @@ void preorder(Node* root) {
 }
 
 void inorder(Node* root) {
-
     if(root == NULL) {
         return;
     }
@@ -55,9 +53,8 @@ void inorder(Node* root) {
 }
 
 void postorder(Node* root) {
-
     if(root == NULL) {
-        return;
+        return ;
     }
 
     postorder(root->left);
@@ -65,20 +62,55 @@ void postorder(Node* root) {
     cout<<root->data;
 }
 
+vector<int> levelorder(Node* root) {
+
+    queue<Node*> q;
+    q.push(root);
+    vector<int> ans;
+    Node* temp;
+
+    while(!q.empty()) {
+        temp = q.front();
+        q.pop();
+
+    ans.push_back(temp->data);
+
+    if(temp->left)
+    q.push(temp->left);
+
+    if(temp->right)
+    q.push(temp->right);
+    }
+
+    return ans;
+}
+
 int main() {
-    
-    cout<<"ENTER THE ROOT NDOE: ";
+    cout<<"ENTER THE ROOT NODE: ";
     Node* root;
     root = binarytree();
 
-    cout<<"PREORDER: ";
+    // PRE ORDER
+    cout<<"PRE ORDER: ";
     preorder(root);
     cout<<endl;
-    
-    cout<<"INORDER: ";
+
+    // IN ORDER
+    cout<<"IN ORDER: ";
     inorder(root);
     cout<<endl;
 
-    cout<<"POSTORDER: ";
+    // POST ORDER
+    cout<<"POST ORDER: ";
     postorder(root);
+    cout<<endl;
+
+    // LEVEL ORDER TRAVERSAL
+    vector<int> result = levelorder(root);
+    cout<<"LEVEL ORDER: ";
+
+    for(int i=0;i<result.size();i++) {
+        cout<<result[i];
+    }
+    cout<<endl;
 }
