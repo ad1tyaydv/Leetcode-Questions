@@ -32,6 +32,7 @@ Node* binarytree() {
     return temp;
 }
 
+// PRE ORDER OF BINARY TREE
 void preorder(Node* root) {
     if(root == NULL) {
         return;
@@ -42,6 +43,7 @@ void preorder(Node* root) {
     preorder(root->right);
 }
 
+// IN ORDER OF BINARY TREE
 void inorder(Node* root) {
     if(root == NULL) {
         return;
@@ -52,6 +54,7 @@ void inorder(Node* root) {
     inorder(root->right);
 }
 
+// POST ORDER OF BINARY TREE
 void postorder(Node* root) {
     if(root == NULL) {
         return ;
@@ -62,8 +65,8 @@ void postorder(Node* root) {
     cout<<root->data;
 }
 
+// LEVEL ORDER OF BINARY TREE
 vector<int> levelorder(Node* root) {
-
     queue<Node*> q;
     q.push(root);
     vector<int> ans;
@@ -73,16 +76,34 @@ vector<int> levelorder(Node* root) {
         temp = q.front();
         q.pop();
 
-    ans.push_back(temp->data);
+        ans.push_back(temp->data);
 
-    if(temp->left)
-    q.push(temp->left);
-
-    if(temp->right)
-    q.push(temp->right);
+        if(temp->left)
+        q.push(temp->left);
+        
+        if(temp->right)
+        q.push(temp->right);
     }
 
     return ans;
+}
+
+// SIZE OF BINARY TREE
+void total(Node* root, int &count) {
+
+    if(root == NULL)
+    return;
+
+    count++;
+    total(root->left, count);
+    total(root->right, count);
+}
+
+int getsize(Node* root) {
+    
+    int count = 0;
+    total(root, count);
+    return count;
 }
 
 int main() {
@@ -105,12 +126,18 @@ int main() {
     postorder(root);
     cout<<endl;
 
-    // LEVEL ORDER TRAVERSAL
+    // LEVEL ORDER
     vector<int> result = levelorder(root);
-    cout<<"LEVEL ORDER: ";
 
+    cout<<"LEVEL ORDER: ";
     for(int i=0;i<result.size();i++) {
         cout<<result[i];
     }
+    cout<<endl;
+
+    // SIZE
+    cout<<"SIZE: ";
+    int size = getsize(root);
+    cout<<size;
     cout<<endl;
 }
