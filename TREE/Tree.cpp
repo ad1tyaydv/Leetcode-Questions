@@ -90,20 +90,29 @@ vector<int> levelorder(Node* root) {
 
 // SIZE OF BINARY TREE
 void total(Node* root, int &count) {
-
-    if(root == NULL)
-    return;
-
+    if(root == NULL) {
+        return;
+    }
+    
     count++;
     total(root->left, count);
     total(root->right, count);
 }
 
-int getsize(Node* root) {
-    
+int getsize1(Node* root) {
+
     int count = 0;
     total(root, count);
     return count;
+}
+
+int getsize2(Node* root) {
+
+    if(root == NULL) {
+        return 0;
+    }
+
+    return (1 + getsize2(root->left) + getsize2(root->right));
 }
 
 int main() {
@@ -136,8 +145,11 @@ int main() {
     cout<<endl;
 
     // SIZE
-    cout<<"SIZE: ";
-    int size = getsize(root);
-    cout<<size;
+    int size1 = getsize1(root);
+    cout<<"SIZE: "<<size1;
+    cout<<endl;
+
+    int size2 = getsize2(root);
+    cout<<"SIZE: "<<size2;
     cout<<endl;
 }
