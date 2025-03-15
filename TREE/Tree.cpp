@@ -140,6 +140,41 @@ long long sumBT2(Node* root) {
     return (root->data + sumBT2(root->left) + sumBT2(root->right));
 }
 
+// LEAFS OF BINARY TREE
+void countleaf(Node* root, int &count) {
+    if(root == NULL) {
+        return;
+    }
+
+    if(!root->left && !root->right) {
+        count++;
+        return;
+    }
+
+    countleaf(root->left, count);
+    countleaf(root->right, count);
+}
+
+int cntleaf1(Node* root) {
+
+    int count = 0;
+    countleaf(root, count);
+    return count;
+}
+
+int cntleaf2(Node* root) {
+
+    if(!root) {
+        return 0;
+    }
+
+    if(!root->left && !root->right) {
+        return 1;
+    }
+
+    return (cntleaf2(root->left) + cntleaf2(root->right));
+}
+
 int main() {
     cout<<"ENTER THE ROOT NODE: ";
     Node* root;
@@ -185,5 +220,14 @@ int main() {
 
     int sum2 = sumBT2(root);
     cout<<"SUM: "<<sum2;
+    cout<<endl;
+
+    //LEAF
+    int countl1 = cntleaf1(root);
+    cout<<"LEAFS: "<<countl1;
+    cout<<endl;
+
+    int countl2 = cntleaf2(root);
+    cout<<"LEAFS: "<<countl2;
     cout<<endl;
 }
