@@ -115,6 +115,23 @@ int getsize2(Node* root) {
     return (1 + getsize2(root->left) + getsize2(root->right));
 }
 
+// SUM OF BINARY TREE
+void total(Node* root, long long &sum) {
+    if(root == NULL) {
+        return;
+    }
+
+    sum += root->data;
+    total(root->left, sum);
+    total(root->right, sum);
+}
+
+long long sumBT(Node* root) {
+    long long sum = 0;
+    total(root, sum);
+    return sum;
+}
+
 int main() {
     cout<<"ENTER THE ROOT NODE: ";
     Node* root;
@@ -151,5 +168,10 @@ int main() {
 
     int size2 = getsize2(root);
     cout<<"SIZE: "<<size2;
+    cout<<endl;
+
+    // SUM
+    int sumofBT = sumBT(root);
+    cout<<"SUM: "<<sumofBT;
     cout<<endl;
 }
