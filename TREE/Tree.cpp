@@ -175,6 +175,19 @@ int cntleaf2(Node* root) {
     return (cntleaf2(root->left) + cntleaf2(root->right));
 }
 
+int countnonleaf(Node* root) {
+
+    if(!root) {
+        return 0;
+    }
+    
+    int count = 0;
+    if(root->left || root->right)
+        count = 1;
+
+    return (count + countnonleaf(root->left) + countnonleaf(root->right));
+}
+
 int main() {
     cout<<"ENTER THE ROOT NODE: ";
     Node* root;
@@ -222,12 +235,17 @@ int main() {
     cout<<"SUM: "<<sum2;
     cout<<endl;
 
-    //LEAF
+    // LEAF
     int countl1 = cntleaf1(root);
     cout<<"LEAFS: "<<countl1;
     cout<<endl;
 
     int countl2 = cntleaf2(root);
     cout<<"LEAFS: "<<countl2;
+    cout<<endl;
+
+    // NON LEAF
+    int nonleaf = countnonleaf(root);
+    cout<<"NON LEAF: "<<nonleaf;
     cout<<endl;
 }
