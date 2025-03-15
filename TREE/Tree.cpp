@@ -126,10 +126,18 @@ void total(Node* root, long long &sum) {
     total(root->right, sum);
 }
 
-long long sumBT(Node* root) {
+long long sumBT1(Node* root) {
     long long sum = 0;
     total(root, sum);
     return sum;
+}
+
+long long sumBT2(Node* root) {
+    if(!root) {
+        return 0;
+    }
+
+    return (root->data + sumBT2(root->left) + sumBT2(root->right));
 }
 
 int main() {
@@ -171,7 +179,11 @@ int main() {
     cout<<endl;
 
     // SUM
-    int sumofBT = sumBT(root);
-    cout<<"SUM: "<<sumofBT;
+    int sum1 = sumBT1(root);
+    cout<<"SUM: "<<sum1;
+    cout<<endl;
+
+    int sum2 = sumBT2(root);
+    cout<<"SUM: "<<sum2;
     cout<<endl;
 }
